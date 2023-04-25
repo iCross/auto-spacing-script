@@ -6,6 +6,9 @@
 // @description  Automatically add spaces between CJK (Chinese, Japanese, and Korean) characters and English letters, taking into account situations like code blocks and dynamic DOM updates.
 // @match        http*://*/*
 // @grant        none
+// @homepageURL  https://github.com/iCross/auto-spacing-script
+// @doownloadURL https://raw.github.comusercontent/iCross/auto-spacing-script/main/index.js
+// @exclude      https://jsfiddle.net/*
 // @require      https://unpkg.com/pangu@4.0.7/dist/browser/pangu.min.js
 // @require      https://cdn.jsdelivr.net/npm/@violentmonkey/shortcut@1
 // ==/UserScript==
