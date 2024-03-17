@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto add space between CJK and English
 // @namespace    pangu-userscript
-// @version      1.2.3
+// @version      1.2.4
 // @license      MIT
 // @description  Automatically add spaces between CJK (Chinese, Japanese, and Korean) characters and English letters, taking into account situations like code blocks and dynamic DOM updates.
 // @match        http*://*/*
@@ -129,17 +129,29 @@ const observer = new MutationObserver(() => {
     register("a-keye", executeMainAction);
 
     const autoExecuteUrlsinREGEX = GM_getValue("autoExecuteUrlsinREGEX", []);
+    const vanillaPanguUrls = GM_getValue("vanillaPanguUrls", []);
 
+    for (let regex of vanillaPanguUrls) {
+        console.debug("Current vanilla REGEX：", regex);
+
+        if (new RegExp(regex).test(window.location.href)) {
+            console.debug("Matched url: ", regex);
+
+            pangu.autoSpacingPage();
+            return;
+        }
+    }
     for (let regex of autoExecuteUrlsinREGEX) {
         console.debug("Current REGEX：", regex);
         if (new RegExp(regex).test(window.location.href)) {
-            console.debug("Matched: ", regex);
+            console.debug("Matched url: ", regex);
             executeMainAction();
-            break;
+            return;
         }
     }
 
 })();
+
 
 
 
