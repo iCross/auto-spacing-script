@@ -9,6 +9,7 @@
 // @homepageURL  https://github.com/iCross/auto-spacing-script
 // @doownloadURL https://raw.githubusercontent.com/iCross/auto-spacing-script/main/index.js
 // @exclude      https://jsfiddle.net/*
+// @exclude      https://www.notion.so/*
 // @require      https://unpkg.com/pangu@4.0.7/dist/browser/pangu.min.js
 // @require      https://cdn.jsdelivr.net/npm/@violentmonkey/shortcut@1
 // ==/UserScript==
@@ -16,12 +17,20 @@
 (function() {
     "use strict";
 
-    // Register a keyboard shortcut (c-e) using Violentmonkey's
+    // Register a keyboard shortcut (a-e) using Violentmonkey's
     const { register } = VM.shortcut;
-    register("c-u", () => {
+    register("a-keye", () => {
         // Run once when the script is loaded
         spacingFunction();
         console.log("You just pressed Shortcut in violetmonkey.");
+      // Start observing
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", () => {
+            observeDOM(observer);
+        });
+    } else {
+        observeDOM(observer);
+    }
     });
 
     /**
@@ -82,7 +91,7 @@
     const spacingFunctionDebounced = debounce(spacingFunction, 300);
 
     // Run once when the script is loaded
-    spacingFunction();
+    //spacingFunction();
 
     // Observe DOM changes
     const observer = new MutationObserver(() => {
@@ -91,13 +100,7 @@
         });
     });
 
-    // Start observing
-    if (document.readyState === "loading") {
-        document.addEventListener("DOMContentLoaded", () => {
-            observeDOM(observer);
-        });
-    } else {
-        observeDOM(observer);
-    }
+
 })();
+
 
